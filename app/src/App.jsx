@@ -1,57 +1,134 @@
-import React, {Component} from 'react'
-import {render} from 'react-dom'
-import Logo from './components/Logo/'
-import Link from './components/Link/'
+import React from 'react';
+import Topbar, { topbarIcons } from './components/Topbar';
+import InspiredBy from './components/InspiredBy';
+import Settings from './components/Settings';
+import Games from './components/Games';
 
-import ElectronImg from './assets/electron.png'
-import ReactImg from './assets/react.png'
-import WebpackImg from './assets/webpack.png'
+var Mousetrap = require('mousetrap');
+var wifi = require("node-wifi");
 
-const logos = [
-    ElectronImg,
-    ReactImg,
-    WebpackImg
-]
-
-
-export default class App extends Component {
-    render() {
-        const logosRender = logos.map( (logo, index) => {
-            return <Logo key = {index} src = { logo } />
-        })
-
-        return (
-            <div>
-                {logosRender}
-
-                <div className="hello">
-                    <h1>Hello React!1</h1>
-                </div>
-
-                <p>
-                    If you are trying to build Electron apps using React, or you just
-                    want to play around with them, feel free to use this
-                    seed as a starting point.
-                </p>
-
-                <p>
-                    Pay attention to how everything inside src/ folder is bundled
-                    into build/ folder, how global and scoped CSS work, how to compose
-                    React components, or simply how Webpack changes relative
-                    image paths to public paths after bundling the assets.
-                </p>
-
-                <p>
-                    Check out the docs for&nbsp;
-                    <Link to='https://electronjs.org/docs'>Electron</Link>,&nbsp;
-                    <Link to='https://reactjs.org/docs/hello-world.html'>React </Link> and&nbsp;
-                    <Link to='https://webpack.js.org/configuration/'>Webpack 4</Link>.
-                    Customize this template as you wish by adding any fancy tool
-                    you are used to. If you have any issue, please file an issue at this seed's&nbsp;
-                    <Link to='https://github.com/pastahito/electron-react-webpack'>
-                    repository</Link>.
-                </p>
-            </div>
-        )
+export default class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      wifi: {
+        connected: false,
+        ssid: "",
+        quality: 0
+      },
+      topbarSelected: false,
+      screenIndex: 1,
+      shiftDx: [1, 1, 5],
+      shiftValue: [0, 0, 10],
+      pressValue: [0, 0, 0]
     }
+
+    wifi.init({
+      iface: null // network interface, choose a random wifi interface if set to null
+    });
+
+    // Check for wifi
+    this.checkWifiInterval = setInterval(this.getCurrentConnection, 5000);
+
+    // Binding UP and DOWN events
+    Mousetrap.bind('w', () => { 
+      if(!this.state.topbarSelected)
+        this.setState({...this.state, topbarSelected: true});
+    });
+    Mousetrap.bind('s', () => { 
+      if(this.state.topbarSelected)
+        this.setState({...this.state, topbarSelected: false});
+    });
+
+    // Binding LEFT and RIGHT events
+    Mousetrap.bind('a', () => { 
+      if(this.state.topbarSelected){
+        if(this.state.screenIndex > 0){
+          this.setState({...this.state, screenIndex: this.state.screenIndex-1});
+        }
+      }
+      else {
+        let temp = this.state.shiftValue.slice();
+        temp[this.state.screenIndex] -= this.state.shiftDx[this.state.screenIndex];
+        this.setState({...this.state, shiftValue: temp})
+      }
+    });
+    Mousetrap.bind('d', () => { 
+      if(this.state.topbarSelected){
+        if(this.state.screenIndex < topbarIcons.length - 1){
+          this.setState({...this.state, screenIndex: this.state.screenIndex+1});
+        }
+      }
+      else {
+        let temp = this.state.shiftValue;
+        temp[this.state.screenIndex] += this.state.shiftDx[this.state.screenIndex];;
+        this.setState({...this.state, shiftValue: temp})
+      }
+    });
+
+    // Binding enter
+    Mousetrap.bind('e', () => { 
+      if(!this.state.topbarSelected) {
+        let temp = this.state.pressValue.slice();
+        temp[this.state.screenIndex] += 1;
+        this.setState({...this.state, pressValue: temp});
+      }
+    });
+  }
+
+  getCurrentConnection() {
+    wifi.getCurrentConnections((err, currentConnections) => {
+      if (err) {
+        console.log("Error getting wifi connection", err);
+      }
+      console.log("Wifi connections", currentConnections);
+
+      if (currentConnections.length > 0) {
+        this.setState({
+          ...this.state, 
+          wifi: {
+            ...this.state.wifi, 
+            connected: true,
+            ssid: currentConnections[0].ssid,
+            quality: currentConnections[0].quality
+          }
+        });
+        return currentConnections;
+      }
+      return null;
+    });
+  }
+
+  renderTopbar() {
+    return (<Topbar 
+      selected={this.state.topbarSelected} 
+      screenIndex={this.state.screenIndex} 
+      wifiConnected={this.state.wifi.connected}
+    />);
+  }
+
+  renderBody() {
+    return [ 
+      <Settings 
+        wifiState={this.state.wifi}
+      />,
+      <Games 
+        shiftValue={this.state.shiftValue[1]} 
+        pressValue={this.state.pressValue[1]}  
+        topbarSelected={this.state.topbarSelected}
+      />, 
+      <InspiredBy
+        shiftValue={this.state.shiftValue[2]}
+      />
+    ][this.state.screenIndex];
+  }
+
+  render() {
+    return (
+      <div>
+        {this.renderTopbar()}
+        {this.renderBody()}
+      </div>
+    );
+  }
 }

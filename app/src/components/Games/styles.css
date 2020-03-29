@@ -1,0 +1,34 @@
+.container {
+    padding-left: 40px;
+}
+
+.container h6 {
+    color: gainsboro;
+}
+
+.shadow {
+    filter: drop-shadow(0 0 5px rgba(0,0,0,0.6));
+}
+
+.inline {
+    display: inline;
+    /* padding-right: 10px; */
+}
+
+h5 {
+    margin-block-end: 0;
+    margin-block-start: 10px;
+    filter: drop-shadow(0 0 5px rgba(0,0,0,0.6));
+}
+.clear {
+    clear: both;
+}
+.dummyText {
+    visibility: hidden; 
+}
+.onlineText {
+    margin-top: 0px;
+}
+.descrText {
+    width: 90%;
+}

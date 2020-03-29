@@ -1,0 +1,87 @@
+.container {
+    font-size: 1.2rem;
+    /* border: 1px solid red; */
+}
+
+.container h5 {
+    font-size: 1.2rem;
+    font-family: "Courier New", Courier, monospace;
+}
+.container span {
+    display: inline-block;
+    vertical-align: top;
+    padding-top: 10px;
+    /* line-height: normal; */
+}
+
+.oneThreeLeftContainer {
+    float: left;
+    width: 33%;
+    padding: 10px 0 0 20px;
+    vertical-align: middle;
+    line-height: 20px;
+}
+.oneThreeCenterContainer {
+    margin:auto;
+    width: 33%;
+    text-align: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+.oneThreeRightContainer {
+    float: right;
+    width: 33%;
+    padding: 20px 20px 0 0;
+    text-align: right;
+}
+.oneThreeRightContainer svg {
+    opacity: .2;
+}
+
+.inline {
+    display: inline;
+    padding-left: 20px;
+}
+.iconDisonnected {
+    /* opacity: 0.2; */
+}
+.iconConnected {
+    animation: connecting .5s 4 linear;
+    animation-fill-mode: forwards;
+}
+@keyframes connecting { 
+    45% { opacity: 0.2; } 
+    50% { opacity: 1; } 
+    100% { opacity: 1; } 
+}
+
+.shadow {
+    filter: drop-shadow(0 0 5px rgba(0,0,0,0.6));
+}
+
+.psIcon {
+    color: #fff;
+    font-size: 1.2rem;
+}
+.psIcon ~ .psIcon {
+    margin-left: 20px;
+}
+.active {
+    font-size: 2rem;
+}
+.selected {
+    /* filter: drop-shadow(0 0 8px rgb(179, 0, 0)); */
+    animation: selectRed 2s infinite;
+}
+@keyframes selectRed {
+    0% { filter: drop-shadow(0 0 8px rgb(241, 43, 43)); }
+    /* 30% { filter: drop-shadow(0 0 10px rgb(241, 43, 43)); } */
+    50% { filter: drop-shadow(0 0 8px rgb(7, 7, 7)); }
+    /* 70% { filter: drop-shadow(0 0 10px rgb(241, 43, 43)); } */
+    100% { filter: drop-shadow(0 0 8px rgb(241, 43, 43)); }
+}
+
+.playerIcon {
+    position: relative;
+    width: 40px;
+}
