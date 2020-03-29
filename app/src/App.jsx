@@ -25,7 +25,7 @@ export default class App extends Component {
                 {logosRender}
 
                 <div className="hello">
-                    <h1>Hello React!</h1>
+                    <h1>Hello React!1</h1>
                 </div>
 
                 <p>
