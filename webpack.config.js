@@ -6,6 +6,7 @@ module.exports = {
     watch: ENV === 'development',
     target: 'electron-renderer',
     entry: './app/src/renderer_process.js',
+    devtool: 'inline-source-map',
     output: {
         path: __dirname + '/app/build',
         publicPath: 'build/',

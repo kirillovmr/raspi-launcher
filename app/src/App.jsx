@@ -5,7 +5,7 @@ import Settings from './components/Settings';
 import Games from './components/Games';
 
 var Mousetrap = require('mousetrap');
-var wifi = require("node-wifi");
+var Wifi = require("node-wifi");
 
 export default class App extends React.Component {
   constructor(props) {
@@ -23,12 +23,12 @@ export default class App extends React.Component {
       pressValue: [0, 0, 0]
     }
 
-    wifi.init({
+    Wifi.init({
       iface: null // network interface, choose a random wifi interface if set to null
     });
 
     // Check for wifi
-    this.checkWifiInterval = setInterval(this.getCurrentConnection, 5000);
+    this.checkWifiInterval = setInterval(this.getCurrentConnection.bind(this), 5000);
 
     // Binding UP and DOWN events
     Mousetrap.bind('w', () => { 
@@ -77,7 +77,7 @@ export default class App extends React.Component {
   }
 
   getCurrentConnection() {
-    wifi.getCurrentConnections((err, currentConnections) => {
+    Wifi.getCurrentConnections((err, currentConnections) => {
       if (err) {
         console.log("Error getting wifi connection", err);
       }
