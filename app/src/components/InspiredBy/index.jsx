@@ -48,7 +48,7 @@ export default function InspiredBy(props) {
                 height={300}
                 scale={1.5}
                 entropy={props.shiftValue}
-                maxParticles={5000}
+                maxParticles={2000}
                 particleOptions={particleOptions}
                 backgroundColor={"transparent"}
             />
