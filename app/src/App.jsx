@@ -7,6 +7,12 @@ import Games from './components/Games';
 var Mousetrap = require('mousetrap');
 var Wifi = require("node-wifi");
 
+var os = require('os');
+if (os.platform == "linux") {
+  var Mcp3008 = require('mcp3008.js'),
+      adc = new Mcp3008()
+}
+
 export default class App extends React.Component {
   constructor(props) {
     super(props);
@@ -39,6 +45,18 @@ export default class App extends React.Component {
       if(this.state.topbarSelected)
         this.setState({...this.state, topbarSelected: false});
     });
+    if (os.platform() == "linux") {
+      adc.poll(1, 100, value => {
+        if (value < 300) {
+          if(!this.state.topbarSelected)
+            this.setState({...this.state, topbarSelected: true});
+        }
+        else if (value > 700) {
+          if(this.state.topbarSelected)
+          this.setState({...this.state, topbarSelected: false});
+        }
+      });
+    }
 
     // Binding LEFT and RIGHT events
     Mousetrap.bind('a', () => { 
@@ -65,6 +83,34 @@ export default class App extends React.Component {
         this.setState({...this.state, shiftValue: temp})
       }
     });
+    if (os.platform() == "linux") {
+      adc.poll(2, 100, value => {
+        if (value < 300) {
+          if(this.state.topbarSelected){
+            if(this.state.screenIndex > 0){
+              this.setState({...this.state, screenIndex: this.state.screenIndex-1});
+            }
+          }
+          else {
+            let temp = this.state.shiftValue.slice();
+            temp[this.state.screenIndex] -= this.state.shiftDx[this.state.screenIndex];
+            this.setState({...this.state, shiftValue: temp})
+          }
+        }
+        else if (value > 700) {
+          if(this.state.topbarSelected){
+            if(this.state.screenIndex < topbarIcons.length - 1){
+              this.setState({...this.state, screenIndex: this.state.screenIndex+1});
+            }
+          }
+          else {
+            let temp = this.state.shiftValue;
+            temp[this.state.screenIndex] += this.state.shiftDx[this.state.screenIndex];;
+            this.setState({...this.state, shiftValue: temp})
+          }
+        }
+      });
+    }
 
     // Binding enter
     Mousetrap.bind('e', () => { 
