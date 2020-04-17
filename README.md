@@ -1,20 +1,16 @@
-# Electron React Webpack template
+# Game Launcher for EXPO 2020 CS #48 UIC Project
 
-[![Build Status](https://travis-ci.com/MrRefactoring/electron-react-webpack.svg?branch=master)](https://travis-ci.com/MrRefactoring/electron-react-webpack)
-[![dependencies Status](https://david-dm.org/MrRefactoring/electron-react-webpack/status.svg)](https://david-dm.org/MrRefactoring/electron-react-webpack)
-[![devDependencies Status](https://david-dm.org/MrRefactoring/electron-react-webpack/dev-status.svg)](https://david-dm.org/MrRefactoring/electron-react-webpack?type=dev)
+An electron application that is capable of launching games on our PlayStation that we created for EXPO 2020.
 
-Try this Electron 5 & React 16 & Webpack 4 template for a quick development and prototyping.
-
-![w10 sample](https://user-images.githubusercontent.com/11739632/37350993-59ad48d4-26da-11e8-9ac5-d3539cf1e2f9.PNG)
+![w10 sample](https://raw.githubusercontent.com/mjstest/orgb5/e34716a717acd8261a7e8d736e6b6a3b/launcher.png)
 
 ## Install
 ``` bash
 # Clone the repository
-$ git clone https://github.com/pastahito/electron-react-webpack
+$ git clone https://github.com/kirillovmr/raspi-launcher.git
 
 # Go into the repository
-$ cd electron-react-webpack
+$ cd raspi-launcher
 
 # Install dependencies
 $ npm install
@@ -71,5 +67,5 @@ $ npm start
 ```
 
 ## Related
-- [electron-vue-webpack](https://github.com/pastahito/electron-vue-webpack) -
-Minimal Electron template using Vue 2 instead of React.
+- [Presentation slides](https://docs.google.com/presentation/d/1707LMlCcuWNO_rAhj0ZZwcw_gRwvyscWCag-se6P1ik/edit?usp=sharing) - Project presentation slides.
+- [Presentation video](https://youtu.be/9IkYypi8o9U) - Video showcase of the project.
