@@ -2,7 +2,11 @@
 
 An electron application that is capable of launching games on our PlayStation that we created for EXPO 2020.
 
-![w10 sample](https://raw.githubusercontent.com/mjstest/orgb5/e34716a717acd8261a7e8d736e6b6a3b/launcher.png)
+![preview](https://raw.githubusercontent.com/mjstest/orgb5/e34716a717acd8261a7e8d736e6b6a3b/launcher.png)
+
+## Related
+- [Presentation slides](https://docs.google.com/presentation/d/1707LMlCcuWNO_rAhj0ZZwcw_gRwvyscWCag-se6P1ik/edit?usp=sharing) - Project presentation slides.
+- [Presentation video](https://youtu.be/9IkYypi8o9U) - Video showcase of the project.
 
 ## Install
 ``` bash
@@ -65,7 +69,3 @@ $ npm start
     ├── package.json
     ├── webpack.config.js               # Webpack 4 setup
 ```
-
-## Related
-- [Presentation slides](https://docs.google.com/presentation/d/1707LMlCcuWNO_rAhj0ZZwcw_gRwvyscWCag-se6P1ik/edit?usp=sharing) - Project presentation slides.
-- [Presentation video](https://youtu.be/9IkYypi8o9U) - Video showcase of the project.
